@@ -18,29 +18,48 @@ const { width } = Dimensions.get("screen");
 
 const Tab = createBottomTabNavigator();
 
-const CustomTab = ({ tab, onPress }) => {
-  console.log(tab, "ttttttt");
+const CustomTab = ({ tab, onPress, activeTab }) => {
+  // console.log(tab, "ttttttt");
+
   return (
     <TouchableOpacity onPress={onPress} style={styles.tab}>
       {tab.name === "ახლი sms!" ? (
         <Image
           // style={{ width: 30, height: 30 }} 1
-          source={require("./assets/sms.png")}
+          source={
+            activeTab === "ახლი sms!"
+              ? require("./assets/sms2.png")
+              : require("./assets/sms.png")
+          }
         />
       ) : tab.name === "კონტაქტი" ? (
         <Image
           // style={{ width: 30, height: 30 }}
-          source={require("./assets/conatact.png")}
+          source={
+            activeTab === "კონტაქტი"
+              ? require("./assets/contact2.png")
+              : require("./assets/conatact.png")
+          }
         />
       ) : tab.name === "ისტორია" ? (
         <Image
           // style={{ width: 30, height: 30 }}
-          source={require("./assets/history.png")}
+
+          source={
+            activeTab === "ისტორია"
+              ? require("./assets/history2.png")
+              : require("./assets/history.png")
+          }
         />
       ) : (
         <Image
           // style={{ width: 30, height: 30 }}
-          source={require("./assets/params.png")}
+
+          source={
+            activeTab === "პარამეტრები"
+              ? require("./assets/params.png")
+              : require("./assets/settings1.png")
+          }
         />
       )}
       <Text
@@ -53,9 +72,12 @@ const CustomTab = ({ tab, onPress }) => {
 };
 
 const TabBar = ({ state, navigation }) => {
+  const [activeTab, setActiveTab] = React.useState("");
+
   console.log(state, navigation);
 
   const handlePress = (activeTab) => {
+    setActiveTab(activeTab);
     navigation.navigate(activeTab);
   };
 
@@ -75,6 +97,7 @@ const TabBar = ({ state, navigation }) => {
           return (
             <CustomTab
               onPress={() => handlePress(route.name)}
+              activeTab={activeTab}
               tab={route}
               key={route.key}
             />

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   View,
@@ -8,8 +8,23 @@ import {
 } from "react-native";
 import HeaderText from "../components/headerTitle";
 
-function smsScreen() {
+function smsScreen({ navigation, route }) {
+  console.log("------------------------");
   const [msgText, setMsgText] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState(null);
+  // console.log(route, "navigationnavigation");
+  console.log("+++++++++++++");
+
+  const phone = route.params?.phone;
+  useEffect(() => {
+    return setPhoneNumber(null);
+  }, []);
+  useEffect(() => {
+    // if (phoneNumber === null) {
+    console.log("xxxxxxxxxxxxx");
+    setPhoneNumber(phone);
+    // }
+  }, [phone]);
   return (
     <View style={{ flex: 1, paddingHorizontal: 15 }}>
       <HeaderText />
@@ -17,6 +32,8 @@ function smsScreen() {
         style={styles.input}
         autoCapitalize="none"
         autoCorrect={false}
+        onChangeText={(val) => setPhoneNumber(val)}
+        value={phoneNumber}
         placeholder="მობილურის ნომერი"
       />
 
